@@ -5,6 +5,31 @@ from nltk.stem.porter import PorterStemmer
 from nltk.corpus import stopwords
 import string
 
+import nltk
+import os
+
+# Download NLTK data safely
+nltk_data_path = os.path.join(os.getcwd(), "nltk_data")
+if not os.path.exists(nltk_data_path):
+    os.makedirs(nltk_data_path)
+
+nltk.data.path.append(nltk_data_path)
+
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt', download_dir=nltk_data_path)
+
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords', download_dir=nltk_data_path)
+
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab', download_dir=nltk_data_path)
+
 # ------------------ PAGE CONFIG ------------------
 st.set_page_config(
     page_title="Spam Detector Pro",
@@ -151,4 +176,5 @@ if st.button("🔍 Classify Message"):
             )
 
 # ------------------ FOOTER ------------------
+
 st.markdown("<div class='footer'>© 2026 Shahrier Sabit | Machine Learning Project</div>", unsafe_allow_html=True)
